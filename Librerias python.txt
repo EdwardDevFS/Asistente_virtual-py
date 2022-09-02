@@ -1,0 +1,37 @@
+LIBRERIA PARA RECONOCIMIENTO DE VOZ
+pip install speechRecognition
+
+LIBRERIA PARA IA ASISTENTE (VOZ)
+pip install pyttsx3
+
+LIBRERIA PARA REDIRECCIONAMIENTO(PAGS WEB)
+pip install pywhatkit
+
+LIBRERIA IMPORTANTE PARA IA
+pip install flask
+
+PAQUETE PARA FINANZAS, PARA CONECTARSE CON LA BOLSA DE VALORES
+pip install yfinance
+
+PAQUETE PARA BROMAS DE PYTHON
+pip install pyjokes
+
+PAQUETE WIKIPEDIA
+pip install wikipedia
+
+LIBRERIA 
+pip install pipwin
+
+LIBRERIA PARA AUDIO
+pip install pyaudio
+
+OTROS:
+pip install keyboard
+pip install 
+
+
+
+#INICIAR VOCES Y OBTENIENDO LAS VOCES DE WINDOWS
+engine = pyttsx3.init()
+for voz in engine.getProperty('voices'):
+    print(voz)
