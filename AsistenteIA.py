@@ -29,12 +29,10 @@ class Asistente:
         self.r = sr.Recognizer();
         with sr.Microphone() as self.origen:         #Configurar el microfono  
             self.r.pause_threshold = 1            #Tiempo de espera
-            print("Ya puedes hablar")
             self.audio = self.r.listen(self.origen)            #Guardar lo que escuche como audio
             
             try:
                 self.pedido = self.r.recognize_google(self.audio, language = "es-mx")      #Buscar en google lo que ha escuchado
-                print("Dijiste: "+ self.pedido)
                 return self.pedido
             except sr.UnknownValueError:
                 self.mensaje = "Ups, no entendí"
@@ -82,7 +80,6 @@ class Asistente:
 
     def saludo_inicial(self):
         self.hora = datetime.datetime.now()
-        print(self.hora)
         if self.hora.hour > 17 and self.hora.minute < 59:
             self.momento = 'Buenas noches'
         elif self.hora.hour < 12:
@@ -162,6 +159,8 @@ class Asistente:
             self.hablar(self.mensaje)
             self.calculadora()
 
+    def prueba():
+        asistente.pedir_cosas()
     def pedir_cosas(self):
         self.saludo_inicial()    #Activar el saludo inicial
         self.comenzar = True     #Variable de corte
@@ -223,4 +222,4 @@ class Asistente:
                 
 
 asistente = Asistente()
-asistente.pedir_cosas()
+
