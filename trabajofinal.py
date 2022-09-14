@@ -1,13 +1,10 @@
 from tkinter import *
+
 from AsistenteIA import Asistente
+#import MySQLdb
 
+#VARIABLES
 
-
-root = Tk() #root = nombre de mi raiz
-root.title('Ferretería "El tornillo feliz"') # nombre del titulo de mi ventana
-root.resizable(False,False)
-root.iconbitmap("ferretería.ico")
-#---------------------------------Productos-----------------------------------
 
 def hallar_desc():
     if obtenerCodigo.get() == "Prod1":
@@ -54,15 +51,14 @@ def hallar_desc2():
 #------------------------------
     
 def hallar_total():
+    try: 
         obtenerTotal.set(float(obtenerSubtotal.get())+ float(obtenerSubtotal1.get())+ float(obtenerSubtotal2.get()))
         imprimir_datos()
+    except ValueError:
+        obtenerTotal.set("")
         
- 
-
 def CallAssistant():
     Asistente.prueba()
-
-    
 #-------------------------------------------
         
 def total_definitivo():
@@ -75,29 +71,96 @@ def hallar_sub_total():
     try:
         obtenerSubtotal.set(float(obtenerCantidad.get())*float(obtenerPrecio.get()))
     except ValueError:
-        obtenerSubtotal.set(int(0))
+        global des 
+        obtenerSubtotal.set(0)
         
 def hallar_sub_total1():
     try:
         obtenerSubtotal1.set(float(obtenerCantidad1.get())*float(obtenerPrecio1.get()))
     except ValueError:
-        obtenerSubtotal1.set(int(0))
+        global des1 
+        obtenerSubtotal1.set(0)
 def hallar_sub_total2():
     try:
         obtenerSubtotal2.set(float(obtenerCantidad2.get())*(float(obtenerPrecio2.get())))
     except ValueError:
-        obtenerSubtotal2.set(int(0))
-    
+        global des2 
+        obtenerSubtotal2.set(0)
+def Info():
+    obtenerDni.set("76577686")
+    obtenerTel.set("918914094")
+    obtenerApellido.set("Mamani Mamani")
+    obtenerNombre.set("Edward Josue")
+    obtenerDir.set("Calle Jorge Chaves G-6")
 def imprimir_datos():
-    print("hola, Señor "+obtenerApellido.get()+" "+obtenerNombre.get())
-    print("El total de su compra es: "+obtenerTotal.get()+" Nuevos soles")
+    emergent = Tk()
+    emergent.title('Ferretería "El tornillo feliz"') # nombre del titulo de mi ventana
+    emergent.resizable(True,True)
+    emergent.iconbitmap("ferretería.ico")
     
+    frameem = Frame(emergent)
+    frameem.pack() 
+    Ttl = Label(frameem, text='Ferretería "El tornillo Feliz"', font=("calibri", 18))
+    Ttl.grid(row=0, column=1, pady=10, padx=10)
+    frameem1 = Frame(emergent)
+    frameem1.pack() 
+    lbl = Label(frameem1, text=f"Cliente: {obtenerNombre.get()} {obtenerApellido.get()}", font=("Sans-Serif",11)).grid(row=0, column=0, pady=5, padx=10)
+    lbl1 = Label(frameem1, text=f"DNI : {obtenerDni.get()}",  font=("Sans-Serif",11)).grid(
+        row=0, column= 1, pady=5, padx=5)
+    lbl1 = Label(frameem1, text=f"Dirección : {obtenerDir.get()}",  font=("Sans-Serif",11),justify='left')
+    lbl1.grid(row=1, column= 0, pady=5, padx=5)
+    lbl1 = Label(frameem1, text=f"Telefono : {obtenerTel.get()}",  font=("Sans-Serif",11),justify='left')
+    
+    frameem2 = Frame(emergent)
+    frameem2.pack()        
+    emergent.mainloop()
+
+root = Tk() #root = nombre de mi raiz
+root.title('Ferretería "El tornillo feliz"') # nombre del titulo de mi ventana
+root.resizable(False,False)
+root.iconbitmap("ferretería.ico")
+
+
+#---------------------------------Productos-----------------------------------
+
+
 miFrame = Frame(root)# primer frame
 miFrame.pack() #empaquetando
+miFrame #
 
 
-
-
+'''
+def Enviardatos():
+    dato = [DNI,NOM,APE,DIR,TEL]
+    query = "INSERT INTO usuarios(dni,nombre,apellidos,direccion,telefono) VALUES '%s')" % dato
+    run_query(query)
+    VARIABLES:
+    obtenerDni
+    obtenerTel
+    obtenerApellido
+    obtenerNombre
+    obtenerDir
+    obtenerCodigo
+    obtenerCodigo1
+    obtenerCodigo2
+    obtenerDescripcion
+    obtenerDescripcion1
+    obtenerDescripcion2
+    obtenerUnidad
+    obtenerUnidad1
+    obtenerUnidad2
+    obtenerCantidad
+    obtenerCantidad1
+    obtenerCantidad2
+    obtenerPrecio
+    obtenerPrecio1
+    obtenerPrecio2
+    obtenerSubtotal
+    obtenerSubtotal1
+    obtenerSubtotal2
+    obtenerTotal
+    
+'''
 
 #Insertamos los widgets
 #label titulo
@@ -110,27 +173,30 @@ lDni = Label(miFrame, text='DNI:')
 lDni.grid(row=5, column=0, sticky='e', pady=5, padx=5)
 tDni = Entry(miFrame,textvariable=obtenerDni)
 tDni.grid(row=5, column=1, pady=5, padx=5)
-
+#botonDB = Button(miFrame,width=9,height=2, text="Enviar",command=Enviardatos).grid(row=5, column=2, pady=8, padx=8)
 #Label y entry Apellido
 obtenerApellido=StringVar()
 lApellido = Label(miFrame, text='Apellidos:')
 lApellido.grid(row=6, column=2, sticky='e', pady=5, padx=5)
 tApellido = Entry(miFrame,textvariable=obtenerApellido)
-tApellido.grid(row=6, column=1, pady=5, padx=5)
-
+tApellido.grid(row=6, column=3, pady=5, padx=5)
+boton = Button(miFrame ,width=9,height=2, text="Aleatorio",command=Info).grid(row=6, column=4, pady=5, padx=8)
 #Label y entry Nombre
+
 obtenerNombre=StringVar()
 lNombre = Label(miFrame, text='Nombres:')
 lNombre.grid(row=6, column=0, sticky='e', pady=5, padx=5)
 tNombre = Entry(miFrame,textvariable=obtenerNombre)
-tNombre.grid(row=6, column=3, pady=5, padx=5)
+tNombre.grid(row=6, column=1, pady=5, padx=5)
 #Label y entry Diección
+
 obtenerDir=StringVar()
 lDireccion = Label(miFrame, text='Dirección:')
 lDireccion.grid(row=7, column=0, sticky='e', pady=5, padx=5)
 tDireccion = Entry(miFrame,textvariable=obtenerDir)
 tDireccion.grid(row=7, column=1, columnspan=2, sticky='we',pady=5, padx=5)
 #Label y entry Teléfono
+
 obtenerTel=StringVar()
 lTel = Label(miFrame, text='Teléfono:')
 lTel.grid(row=8, column=0, sticky='e', pady=5, padx=5)
@@ -236,18 +302,45 @@ tTotal.grid(row=12, column=8, pady=5, padx=5)
 
 boton = Button(miFrame1,width=9,height=2, text="Sub-total",command=total_definitivo).grid(row=10, column=6, pady=5, padx=5)
 botonIA = Button(miFrame1,width=9,height=2, text="ASISTENTE",command=CallAssistant).grid(row=11, column=8, pady=8, padx=8)
+
 #boton = Button(miFrame1,width=5, text="Exhibir",command=hallar_sub_total1).grid(row=11, column=6, pady=5, padx=5)
 #boton = Button(miFrame1,width=5, text="Exhibir",command=hallar_sub_total2).grid(row=12, column=6, pady=5, padx=5)
+'''
+DNI = obtenerDni
+APE = obtenerApellido
+NOM = obtenerNombre
+DIR = obtenerDir
+TEL = obtenerTel
+
+    
+
+DB_HOST = 'localhost' 
+DB_USER = 'root' 
+DB_PASS = '' 
+DB_NAME = 'usuarios_asist' 
+
+def run_query(query=''): 
+    datos = [DB_HOST, DB_USER, DB_PASS, DB_NAME] 
+    conn = MySQLdb.connect(*datos) # Conectar a la base de datos 
+    cursor = conn.cursor()         # Crear un cursor 
+    cursor.execute(query)          # Ejecutar una consulta 
+    if query.upper().startswith('SELECT'): 
+        data = cursor.fetchall()   # Traer los resultados de un select 
+    else: 
+        conn.commit()              # Hacer efectiva la escritura de datos 
+        data = None             #usuarios_asist
+    cursor.close()                 # Cerrar el cursor 
+    conn.close()                   # Cerrar la conexión 
+
+    return data
+
+'''
+root.mainloop()
+#resultado.imprimir(fila)
 
 #-------------------------------------------NUEVA VENTANA--------------------------------------------------------
-root.mainloop()
-
-'''
-mydb = mysql. conector . connect ( host = “localhost” , usuario = “root” , contraseña = “” , database = “database_name” )
-cursor = mydb. cursor ( )
-cursor. ejecutar ( “SELECCIONAR * de los usuarios” )
-resultado = cursor. fetchall ( )
-para la fila en el resultado: imprimir ( fila )
 
 
-'''
+
+
+

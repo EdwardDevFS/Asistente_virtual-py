@@ -9,8 +9,9 @@ import wikipedia
 import time
 import pyautogui
 import keyboard as k
-
-
+from asyncio import \
+    run, sleep, wait
+#import trabajofinal
 
 
 
@@ -136,6 +137,7 @@ class Asistente:
             num = self.transformarAudio()
             num = num.replace("y",",")
             num = num.replace(":",",")
+            num = num.replace("por",",")
             separador=(",")
             num = num.split(separador)
             mul = int(num[0]) * int(num[1])
@@ -212,14 +214,13 @@ class Asistente:
                 self.hablar(self.mensaje)
                 pywhatkit.playonyt(self.pedido)
                 continue
-            elif 'broma' or 'chiste' in self.pedido:
+            elif 'broma' in self.pedido:
                 self.mensaje = pyjokes.get_joke('es')
                 self.hablar(self.mensaje)
                 break
-            elif 'operar' or 'operacion' or 'operación' in self.pedido:
+            elif 'operación' in self.pedido:
                 self.calculadora()
                 continue
-                
+            
 
 asistente = Asistente()
-
